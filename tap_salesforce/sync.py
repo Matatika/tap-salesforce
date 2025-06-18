@@ -1,3 +1,4 @@
+import math
 import time
 import singer
 import singer.utils as singer_utils
@@ -189,7 +190,7 @@ def fix_record_anytype(rec, schema):
             if v in ["true", "false"]:
                 val = (v == "true")
 
-            if v == "":
+            if v == "" or (isinstance(val, float) and not math.isfinite(val)):
                 val = None
 
             rec[k] = val
